@@ -1,0 +1,53 @@
+name: single_char
+
+# 定义模式：训练或者测试
+mode: 'train'
+
+# 是否要从最近的checkpoint恢复
+restore: false
+
+# checkpoint路径
+ckpt:  H:\python-workspace\ocr\ckpts\\ckpts
+
+# tensorboard log directory
+tb_dir: ./tb/single_pld_prob_ldchange
+
+# charmap path
+charmap_path: H:\python-workspace\ocr\map\all_4190.json
+charmap_exist: false
+
+# 预测层输出
+infer_output_path: ./infer.txt
+
+# 训练，测试数据路径
+dir_train: H:\Data\sc_3900\train
+dir_val: H:\Data\sc_3900\val
+dir_infer: H:\Data\sc_3900\infer
+
+# [optional] size of dataset
+train_size: 3900
+val_size: 156
+
+# Which gpu for running. Running on cpu if `-1`
+gpu: -1
+
+# 输入图片的宽，高
+input_width: 64
+input_height: 64
+
+# batch size， 每一个batch中的样本数
+batch_size: 12
+
+# 类的数量
+num_class: 3900
+
+# epochs 的数量
+num_epochs: 10
+
+# checkpoint 保存间隔
+save_interval: 25
+
+# 验证间隔？
+val_interval: 25
+
+
