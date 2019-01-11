@@ -28,3 +28,4 @@ ckpts/ckpts/single_char_model-51.meta
 ckpts/ckpts/single_char_model-76.data-00000-of-00001
 ckpts/ckpts/single_char_model-76.index
 ckpts/ckpts/single_char_model-76.meta
+*.xml
