@@ -26,11 +26,39 @@ class Model:
         self.val_acc = None
         self.val_acc_update_op = None
 
+        # add
+        self.num_layers = None
+        self.num_hidden = None
+        self.data = None
+
     # 存储数据
     def feed(self, images, labels):
         return {
-            self.images : images,
-            self.labels : labels
+            self.images: images,
+            self.labels: labels
         }
 
+    # 模型构建
     def build(self):
+        images = self.images
+        label = self.labels
+
+        cells = list()
+
+        for _ in range(self.num_layers):
+            cell = tf.nn.rnn_cell.GRUCell(num_units=self.num_hidden)
+            """
+            第一个就是输入的循环神经网络的cell，可以设定为BasicLSTMCell等等。
+            第二个参数就是输入数据使用dropout，后面的概率，如果是一，就不会执行dropout。dropout:防止过拟合
+            """
+            cell = tf.nn.rnn_cell.DropoutWrapper(cell=cell, output_keep_prob=1.0)
+            cells.append(cell)
+        network = tf.nn.rnn_cell.MultiRNNCell(cells=cells)
+        outputs, last_state = tf.nn.dynamic_rnn(cell=network, inputs=self.data, dtype=tf.float32)
+
+        # get last output
+        outputs = tf.transpose(outputs, (1, 0, 2))
+        last_output = tf.gather(outputs, int(outputs.get_shape()[0]-1))
+
+        # linear transform
+        out_size = int(target.)
