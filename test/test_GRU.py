@@ -40,7 +40,8 @@ def test_shape():
     #     print(sess.run(input_layer))
         # print("input_layer", input_layer)
 
-def test_gru(size):
+def model():
+    size = 128
 
     # 定义输入
     input_data = tf.placeholder(tf.float32, [-1, 64*64, 1], name='input_img_batch')
@@ -48,10 +49,30 @@ def test_gru(size):
     gru_cell = tf.nn.rnn_cell.GRUCell(size)
     # output:输出，state:状态
     # last_states是最终的状态，而outputs对应的则是每个时刻的输出。
-    outputs, last_states = tf.nn.dynamic_rnn(cell=gru_cell, dtype=tf.float64, sequence_length=)
+    outputs, last_states = tf.nn.dynamic_rnn(cell=gru_cell, inputs=input_data, dtype=tf.float64)
+
+    # get last output
+    outputs = tf.transpose(outputs, (1, 0, 2))
+    last_output = tf.gather(outputs, int(outputs.get_shape()[0]) - 1)
+
+    # linear transform
+    out_size = int(target.get_shape()[1])
+    weight, bias = initialize_weight_bias(in_size=num_hidden, out_size=out_size)
+    logits = tf.add(tf.matmul(last_output, weight), bias)
 
 
+    return logits
 
+
+def train():
+    classes = 100
+    # 训练测试
+    # input_X:指输入的image
+    input_X = tf.placeholder(tf.float32, shape=(None, 64, 64))
+    input_Y = tf.placeholder(tf.float32, shape=(None, classes))
+
+    dropout = tf.placeholder(tf.float32)
+    input_logits =
 
 if __name__ == '__main__':
     print("+=========================")
