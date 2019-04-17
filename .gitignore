@@ -29,3 +29,6 @@ ckpts/ckpts/single_char_model-76.data-00000-of-00001
 ckpts/ckpts/single_char_model-76.index
 ckpts/ckpts/single_char_model-76.meta
 *.xml
+ckpts/ckpts/single_char_model-176.data-00000-of-00001
+ckpts/ckpts/single_char_model-176.index
+ckpts/ckpts/single_char_model-176.meta
